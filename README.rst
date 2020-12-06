@@ -37,7 +37,7 @@ Usage
 * Use this plugin by running pytest normally and use the following options to customize report:
 
 
->>> slack:
+>>> telegram:
     --telegram_id=CHAT_ID
                         Id of telegram chat
     --telegram_token=BOT_TOKEN
