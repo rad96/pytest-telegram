@@ -71,7 +71,7 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
     success_sticker_id = config.option.success_sticker_id
     fail_sticker_id = config.option.fail_sticker_id
     report_url = f'\n{config.option.telegram_report_url}' if config.option.telegram_report_url else ''
-    custom_text = f'\n{config.option.telegram_custom_text}' if config.option.telegram_custom_text else ''
+    custom_text = f'\n{config.option.telegram_custom_text}'.replace('\\n', '\n') if config.option.telegram_custom_text else ''
 
     final_results = 'Passed=%s Failed=%s Skipped=%s Error=%s XFailed=%s XPassed=%s' % (
         passed, failed, skipped, error, xfailed, xpassed)

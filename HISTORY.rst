@@ -6,3 +6,9 @@ History
 ------------------
 
 * Initial release.
+
+1.0.3
+------------------
+
+* Fixed multiline custom text.
+

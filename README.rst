@@ -44,7 +44,7 @@ Usage
                         Telegram Bot token
     --telegram_report_url=URL
                         Link for test report, optional
-    --telegram_custom_test=TEXT
+    --telegram_custom_text=TEXT
                         Custom text, will be added for message, optional
     --telegram_success_sticker_id=FILE_ID
                         File id of telegram sticker which will be attach to Success report
