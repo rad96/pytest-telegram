@@ -12,3 +12,9 @@ History
 
 * Fixed multiline custom text.
 
+1.1.0
+------------------
+
+* Added option for disabling stickers.
+* Added option for list failed tests
+
