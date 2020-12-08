@@ -41,7 +41,7 @@ def test_pytest_telegram(testdir):
     telegram_report_url = 'http://report_link.com'
     fail_sticker_id = 'CAACAgIAAxkBAAMIX8rohSxoNbodB1D38VZx9HI2CDwAAmIBAAIQGm0izcITZBkXtbceBA'
     expected_text = 'Passed=1 Failed=1 Skipped=1 Error=1 XFailed=1 XPassed=1' \
-                    '\nhttp://report_link.com'
+                    '\nhttp://report_link.com\n'
     with mock.patch('requests.post') as mock_post:
         testdir.runpytest('--telegram_id', telegram_chat_id,
                           '--telegram_token', telegram_token,
