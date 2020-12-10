@@ -1,3 +1,6 @@
+import datetime
+import time
+
 import pytest
 import requests
 
@@ -110,6 +113,9 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
     final_results = 'Passed=%s Failed=%s Skipped=%s Error=%s XFailed=%s XPassed=%s' % (
         passed, failed, skipped, error, xfailed, xpassed)
 
+    session_time = time.time() - terminalreporter._sessionstarttime
+    time_taken = f'\nTime taken: {str(time.strftime("%H:%M:%S", time.gmtime(session_time)))}'
+
     if failed == 0 and error == 0:
         sticker_payload = {'chat_id': chat_id, 'sticker': success_sticker_id}
     else:
@@ -119,6 +125,6 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
     if not disable_stickers:
         message_id = requests.post(f'{telegram_uri}/sendSticker', json=sticker_payload).json()['result']['message_id']
     message_payload = {'chat_id': chat_id,
-                       'text': f'{final_results}{custom_text}{report_url}\n{failed_tests}{error_tests}',
+                       'text': f'{final_results}{time_taken}{custom_text}{report_url}\n{failed_tests}{error_tests}',
                        'reply_to_message_id': message_id}
     requests.post(f'{telegram_uri}/sendMessage', json=message_payload).json()
