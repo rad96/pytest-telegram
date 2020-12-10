@@ -1,2 +1,2 @@
-mock==4.0.2
+mock==4.0.3
 requests==2.25.0
