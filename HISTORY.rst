@@ -16,5 +16,9 @@ History
 ------------------
 
 * Added option for disabling stickers.
-* Added option for list failed tests
+* Added option for list failed tests.
 
+1.2.0
+------------------
+
+* Added test session time to report.
