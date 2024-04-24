@@ -1,8 +1,13 @@
 import datetime
 import time
-
+import logging
 import pytest
 import requests
+
+from requests import exceptions
+
+
+LOG = logging.getLogger(__name__)
 
 
 def pytest_addoption(parser):
@@ -120,11 +125,16 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
         sticker_payload = {'chat_id': chat_id, 'sticker': success_sticker_id}
     else:
         sticker_payload = {'chat_id': chat_id, 'sticker': fail_sticker_id}
-
-    message_id = None
-    if not disable_stickers:
-        message_id = requests.post(f'{telegram_uri}/sendSticker', json=sticker_payload).json()['result']['message_id']
-    message_payload = {'chat_id': chat_id,
-                       'text': f'{final_results}{time_taken}{custom_text}{report_url}\n{failed_tests}{error_tests}',
-                       'reply_to_message_id': message_id}
-    requests.post(f'{telegram_uri}/sendMessage', json=message_payload).json()
+    try:
+        message_id = None
+        if not disable_stickers:
+            message_id = requests.post(f'{telegram_uri}/sendSticker', json=sticker_payload).json()['result']['message_id']
+        message_payload = {
+            'chat_id': chat_id,
+            'text': f'{final_results}{time_taken}{custom_text}{report_url}\n{failed_tests}{error_tests}',
+            'reply_to_message_id': message_id
+        }
+        requests.post(f'{telegram_uri}/sendMessage', json=message_payload).json()
+    except exceptions.RequestException as e:
+        LOG.error("TELEGRAM Sending Message Error!!!")
+        LOG.exception(e)
